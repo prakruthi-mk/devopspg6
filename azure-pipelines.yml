@@ -1,0 +1,17 @@
+trigger:
+- main
+
+pool:
+  name: Default  # Self-hosted agent pool
+
+steps:
+- task: Maven@3
+  inputs:
+    mavenPomFile: 'pom.xml'
+    mavenOptions: '-Xmx3072m'
+    javaHomeOption: 'Path'  # Use specific JDK path
+    jdkDirectory: '/usr/lib/jvm/java-11-openjdk'  # Or your JDK 11 path on Windows
+    jdkArchitectureOption: 'x64'
+    publishJUnitResults: true
+    testResultsFiles: '**/surefire-reports/TEST-*.xml'
+    goals: 'package'
